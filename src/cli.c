@@ -153,6 +153,18 @@ static int on_req_receive(quicly_stream_t *stream)
         goto Sent;
     if (path_is(path, "/main.jpg") && send_file(&stream->sendbuf, is_http1, "assets/main.jpg", "image/jpeg"))
         goto Sent;
+    /**
+     * Start adding resources for performance experiments
+     **/
+    if (path_is(path, "/index.html") && send_file(&stream->sendbuf, is_http1, "assets/index.html", "text/html"))
+        goto Sent;
+    if (path_is(path, "/large-text.html") && send_file(&stream->sendbuf, is_http1, "assets/large-text.html", "text/html"))
+        goto Sent;
+    if (path_is(path, "/image.jpg") && send_file(&stream->sendbuf, is_http1, "assets/image.jpg", "image/jpeg"))
+        goto Sent;
+    /**
+     * End adding resources for performance experiments
+     **/
     if (send_sized_text(&stream->sendbuf, path, is_http1))
         goto Sent;
 
