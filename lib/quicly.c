@@ -1873,7 +1873,7 @@ static int send_stream_data(quicly_stream_t *stream, struct st_quicly_send_conte
         if (max_stream_data < end)
             end = max_stream_data;
 
-        if (iter.stream_off != start) {
+        if (iter.stream_off < start) {
             assert(iter.stream_off <= start);
             quicly_sendbuf_advance_dataiter(&iter, start - iter.stream_off);
         }
